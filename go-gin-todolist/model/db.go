@@ -19,10 +19,10 @@ func SetupDB() *gorm.DB {
 	DB = db
 
 	DB.AutoMigrate(&User{})
-	DB.Create(&User{
-		Name: "shville",
-		Age:  25,
-	})
+	// DB.Create(&User{
+	// 	Name: "shville",
+	// 	Age:  25,
+	// })
 	return db
 }
 

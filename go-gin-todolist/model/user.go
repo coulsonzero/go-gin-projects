@@ -10,12 +10,14 @@ type User struct {
 	Age  int
 }
 
+// SELECT * from users;
 func GetAllUsers() *[]User {
 	var users []User
 	DB.Find(&users)
 	return &users
 }
 
+// SELECT * from users WHERE id = ?;
 func FindUserByID(id int) *User {
 	var user User
 	DB.First(&user, id)
@@ -26,6 +28,7 @@ func (u *User) Create() {
 	DB.Create(&u)
 }
 
+// INSERT INTO users(name, age) VALUES(?, ?);
 func (u *User) Add(name string, age int) {
 	DB.Create(&User{
 		Name: name,
@@ -33,6 +36,7 @@ func (u *User) Add(name string, age int) {
 	})
 }
 
+// UPDATE users SET name = ?, age = ?;
 func (u *User) Update() {
 	DB.Model(&u).Updates(User{
 		Name: u.Name,
@@ -40,6 +44,7 @@ func (u *User) Update() {
 	})
 }
 
+// DELETE FROM users;
 func (u *User) Delete() {
 	DB.Delete(&u)
 }

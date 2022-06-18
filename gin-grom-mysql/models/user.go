@@ -5,17 +5,13 @@ import (
 	"gorm.io/gorm"
 )
 
-// User model, use NewUser to create a new instance
 type User struct {
 	gorm.Model
-	ID    uint   `json:"id" gorm:"primary_key"`
 	Name  string `json:"name" binding:"required"`
 	Email string `json:"email" binding:"required"`
-	// CreatedAt time.Time `json:"createdtime"`
-	// UpdatedAt time.Time `json:"updatedtime"`
 }
 
-// NewUser creates a new User{} instance
+// 新增数据
 func NewUser(name string, email string) (*User, error) {
 	var err error
 	if name == "" {
@@ -31,14 +27,14 @@ func NewUser(name string, email string) (*User, error) {
 	return &User{Name: name, Email: email}, err
 }
 
-// FindUserByID finds User by id and return
+// 查询数据 by id
 func FindUserByID(id int) *User {
 	var user User
 	DB.First(&user, id)
 	return &user
 }
 
-// GetAllUsers returns all User records
+// 查询全部数据
 func GetAllUsers() *[]User {
 	var users []User
 	DB.Find(&users)
@@ -50,12 +46,12 @@ func (u *User) Create() {
 	DB.Create(&u)
 }
 
-// Update updates User record attributes in the database
+// 更改数据
 func (u *User) Update() {
 	DB.Model(&u).Updates(User{Name: u.Name, Email: u.Email})
 }
 
-// Delete deletes User record in the database
+// 删除数据
 func (u *User) Delete() {
 	DB.Delete(&u)
 }
